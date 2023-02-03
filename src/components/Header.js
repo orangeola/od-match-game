@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-const Header = () => {
+const Header = (props) => {
   return (
     <div className="Header">
-      <p>High Score: 0</p>
-      <p>Current Score: 0</p>
+      <p>High Score: {props.highScore}</p>
+      <p>Current Score: {props.curScore}</p>
     </div>
   );
 };
