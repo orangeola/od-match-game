@@ -5,6 +5,35 @@ const Main = (props) => {
   const [score, setScore] = useState(0);
   const [reset, setReset] = useState(false);
 
+  useEffect(() => {
+    let redObj = {
+      color: "red",
+      clicked: "false"
+    }
+  
+    let greenObj = {
+      color: "green",
+      clicked: "false"
+    }
+  
+    let yellowObj = {
+      color: "yellow",
+      clicked: "false"
+    }
+  
+    let orangeObj = {
+      color: "orange",
+      clicked: "false"
+    }
+  
+    let blueObj = {
+      color: "blue",
+      clicked: "false"
+    }
+
+    setCardArray([...cardArray, redObj, greenObj, yellowObj, orangeObj, blueObj]);
+  }, [])
+
   useEffect(()=> {
     props.setCur(score);
   }, [score])
@@ -15,9 +44,17 @@ const Main = (props) => {
     setReset(false);
   }, [reset])
 
+  //todo
+  //write randomise order function
+  //initalise onclick for every color div
+
   return (
     <div className="Main">
-      <p>Show clickable cards here</p>
+      <div>
+        {cardArray.map((card) => {
+          return <div key={card.color} className="card" style={{backgroundColor: card.color}}>{card.color}</div>;
+        })}
+      </div>
       <button onClick={() => {setScore(score + 1)}}>Click me</button>
       <button onClick={() => {setReset(true)}}>Click me</button>
     </div>
