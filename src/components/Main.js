@@ -44,11 +44,23 @@ const Main = (props) => {
     setReset(false);
   }, [reset])
 
+  const shuffle = () => {
+    let array = cardArray;
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    setCardArray(array);
+  }
+
   const matchClick = (card) => {
     if(card.clicked){
       setReset(true);
+      let array = cardArray;
+      shuffle()
       cardArray.map((card) => {card.clicked = false;})
     } else {
+      shuffle()
       setScore(score + 1)
       card.clicked = true;
     }
