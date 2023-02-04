@@ -8,27 +8,27 @@ const Main = (props) => {
   useEffect(() => {
     let redObj = {
       color: "red",
-      clicked: "false"
+      clicked: false
     }
   
     let greenObj = {
       color: "green",
-      clicked: "false"
+      clicked: false
     }
   
     let yellowObj = {
       color: "yellow",
-      clicked: "false"
+      clicked: false
     }
   
     let orangeObj = {
       color: "orange",
-      clicked: "false"
+      clicked: false
     }
   
     let blueObj = {
       color: "blue",
-      clicked: "false"
+      clicked: false
     }
 
     setCardArray([...cardArray, redObj, greenObj, yellowObj, orangeObj, blueObj]);
@@ -44,19 +44,31 @@ const Main = (props) => {
     setReset(false);
   }, [reset])
 
-  //todo
-  //write randomise order function
-  //initalise onclick for every color div
+  const matchClick = (card) => {
+    if(card.clicked){
+      setReset(true);
+      cardArray.map((card) => {card.clicked = false;})
+    } else {
+      setScore(score + 1)
+      card.clicked = true;
+    }
+  }
+
+  const displayCards = () => {
+    return (
+      <div>
+        {cardArray.map((card) => {
+          return <div key={card.color} className="card" 
+          style={{backgroundColor: card.color}} 
+          onClick={() => {matchClick(card)}}>{card.color}</div>;
+        })}
+      </div>
+    )
+  }
 
   return (
     <div className="Main">
-      <div>
-        {cardArray.map((card) => {
-          return <div key={card.color} className="card" style={{backgroundColor: card.color}}>{card.color}</div>;
-        })}
-      </div>
-      <button onClick={() => {setScore(score + 1)}}>Click me</button>
-      <button onClick={() => {setReset(true)}}>Click me</button>
+      {displayCards()}
     </div>
   );
 };
